@@ -404,7 +404,8 @@ class ComplexMappingApp:
         phase_W_masked = np.ma.masked_where(~mask, phase_W)
         
         # Usar fase para colorear
-        codomain_plot = self.ax_codomain.imshow(phase_W_masked, 
+        plot_data = phase_W_masked if np.any(mask) else phase_W
+        codomain_plot = self.ax_codomain.imshow(plot_data, 
                                                  extent=[self.domain_range[0], 
                                                          self.domain_range[1],
                                                          self.domain_range[0], 
@@ -457,9 +458,8 @@ class ComplexMappingApp:
         self.ax_codomain.set_aspect('equal')
         self.ax_codomain.grid(True, alpha=0.3)
         
-        # Añadir colorbar para fase
-        cbar = self.fig.colorbar(phase_W_masked if np.any(mask) else phase_W, 
-                                 ax=self.ax_codomain, shrink=0.8)
+        # Añadir colorbar para fase usando el objeto mappable retornado por imshow
+        cbar = self.fig.colorbar(codomain_plot, ax=self.ax_codomain, shrink=0.8)
         cbar.set_label('Fase (radianes)')
     
     def plot_riemann_surface(self, Z, W, X, Y):
