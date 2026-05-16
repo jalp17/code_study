@@ -1,0 +1,11 @@
+{
+  "name": "Fisica-Lab-Processor",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "customizations": {
+    "vscode": {
+      "extensions":["ms-python.python", "ms-python.vscode-pylance"]
+    }
+  },
+  "postCreateCommand": "pip install marker-pdf torch torchvision torchaudio && mkdir -p /workspaces/pdfs_procesados",
+  "remoteUser": "vscode"
+}
